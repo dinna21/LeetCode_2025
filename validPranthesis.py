@@ -1,4 +1,4 @@
-s = "(){}}{"
+s = "(){}"
 def is_valid_pranthesis(s):
     stack = []
     matching_brackets = {')': '(', '}': '{', ']': '['}
