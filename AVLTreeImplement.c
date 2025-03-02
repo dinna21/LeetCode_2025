@@ -52,3 +52,41 @@ struct Node* leftRotate(struct Node* x)
     x->height = 1 + (getHight(x->left) > getHight(x->right)) ? getHight(x->left):getHight(x->right);
     y->height = 1 + (getHight(y->left) > getHight(y->right)) ? getHight(y->left):getHight(y->right);
 }
+struct Node* insertNode(struct Node* node, int key)
+{
+    if(node == NULL)
+        return createNode(key);
+    if(key < node->key)
+        node->left = insertNode(node->left, key);
+        
+    else if(key > node->key)
+        node->right = insertNode(node->right, key);
+        
+    else
+        return node;
+    node->height = 1+ ((getHight(node->left) > getHight(node->right)) ? getHight(node->left):getHight(node->right));
+    int balanceFactor = getBalanceFactor(node);
+    
+    if(balanceFactor > 1 && key<node->left)
+    {
+        return rightRotate(node);
+    }
+    
+    if(balanceFactor < -1 && key>node->right)
+    {
+        return leftRotate(node);
+    }
+    
+    if(balanceFactor > 1 && key > node->left->key)
+    {
+        node->left = leftRotate(node->left);
+        return rightRotate(node);
+    }
+    
+    if(balanceFactor < -1 && key < node->right->key)
+    {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
+    return node;
+}
