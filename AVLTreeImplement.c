@@ -36,7 +36,7 @@ struct Node* rightRotate(struct Node* y)
     y->left = T2;
     // Update Heights
     y->height = 1 + (getHight(y->left) > getHight(y->right)) ? getHight(y->left):getHight(y->right);
-    x->height = 1 + (getHight(x->left) > getHight(x->left)) ? getHight(x->left):getHight(x->right);
+    x->height = 1 + (getHight(x->left) > getHight(x->right)) ? getHight(x->left):getHight(x->right);
     // Return new root
     return x;
 }
@@ -51,6 +51,8 @@ struct Node* leftRotate(struct Node* x)
     // Update Heights
     x->height = 1 + (getHight(x->left) > getHight(x->right)) ? getHight(x->left):getHight(x->right);
     y->height = 1 + (getHight(y->left) > getHight(y->right)) ? getHight(y->left):getHight(y->right);
+    // Return new root
+    return y;
 }
 struct Node* insertNode(struct Node* node, int key)
 {
@@ -67,12 +69,12 @@ struct Node* insertNode(struct Node* node, int key)
     node->height = 1+ ((getHight(node->left) > getHight(node->right)) ? getHight(node->left):getHight(node->right));
     int balanceFactor = getBalanceFactor(node);
     
-    if(balanceFactor > 1 && key<node->left)
+    if(balanceFactor > 1 && key<node->left->key)
     {
         return rightRotate(node);
     }
     
-    if(balanceFactor < -1 && key>node->right)
+    if(balanceFactor < -1 && key>node->right->key)
     {
         return leftRotate(node);
     }
@@ -89,4 +91,29 @@ struct Node* insertNode(struct Node* node, int key)
         return leftRotate(node);
     }
     return node;
+}
+void inorderTravesal(struct Node* node)
+{
+    if (node!= NULL)
+    {
+        inorderTravesal(node->left);
+        printf("%d ", node->key);
+        inorderTravesal(node->right);
+    }
+}
+int main() {
+    struct Node* root = NULL;
+
+    root = insertNode(root, 10);
+    root = insertNode(root, 20);
+    root = insertNode(root, 30);
+    root = insertNode(root, 40);
+    root = insertNode(root, 50);
+    root = insertNode(root, 25);
+
+    printf("Inorder Traversal of AVL Tree:\n");
+    inorderTravesal(root);
+    printf("\n");
+
+    return 0;
 }
