@@ -32,6 +32,10 @@ print(stack2)
 num_str = ''.join(stack2)
 if is_negative:
     num_str = '-' + num_str
-print(num_str)
+    reversed_num =  int(num_str)
+    if reversed_num < -2**31 or reversed_num > 2**31 - 1:
+        print(0)
+    else:
+        print(reversed_num)
 
 
