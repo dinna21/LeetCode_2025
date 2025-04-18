@@ -6,3 +6,12 @@ class Solution:
             if number < minNum:
                 minNum = number
         return minNum
+    def findMin(self, Binarynums: List[int]) -> int:
+        left=0,right = len(Binarynums)-1
+        while left < right:
+            mid = (left+right)//2
+            if Binarynums[mid] > Binarynums[right]:
+                left = mid+1
+            else:
+                right = mid
+        return Binarynums[left]
