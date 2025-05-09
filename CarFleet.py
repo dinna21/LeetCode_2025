@@ -19,3 +19,22 @@ for num in position:
 fleets= set(fleets)
 print(fleets)
 print(len(fleets))
+
+
+
+cars = list(zip(position,speed))
+print(cars)
+
+cars.sort(reverse=True)
+times = []
+for pos, spd in cars:
+    time = (target - pos) / spd
+    times.append(time)
+fleets = 0
+prev_time = 0
+
+for time in times:
+    if time>prev_time:
+        fleets+=1
+        prev_time = time
+return fleets
